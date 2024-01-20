@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".newNote">
+
+<androidx.appcompat.widget.Toolbar
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:id="@+id/toolBarOfCreateNote"
+    app:title=" "
+    android:background="#fcb460">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save my text"
+        android:textColor="@color/white"
+        android:fontFamily="@font/baby"
+        android:textSize="40dp"/>
+
+</androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tittleCreateNote"
+        android:paddingTop="12dp"
+        android:textStyle="bold"
+        android:background="#fcb460"
+        android:hint="enter tittle"
+        android:gravity="center"
+        android:layout_below="@id/toolBarOfCreateNote"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/ContentCreateNote"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tittleCreateNote"
+        android:layout_marginTop="-2dp"
+        android:gravity="center"
+        android:hint="Content"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:background="#fcb460"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveCreateNote"
+        android:src="@drawable/save"
+        android:background="#fcb460"
+        app:maxImageSize="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/white"/>
+
+</RelativeLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "331926399220",
+    "project_id": "savemynoteapp",
+    "storage_bucket": "savemynoteapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331926399220:android:884a4034ebde6d35e116a1",
+        "android_client_info": {
+          "package_name": "com.example.notepadapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC2kDYz4pADPvX9X7G6kTh1EuSCl_nE4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
