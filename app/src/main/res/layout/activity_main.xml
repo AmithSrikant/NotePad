@@ -157,18 +157,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="don't have a account?"
-                android:fontFamily="@font/stopbuck"/>
-
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="20dp"
-                android:layout_weight="1"/>
+                android:fontFamily="@font/stopbuck"
+                android:padding="3dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sign up"
-                android:textSize="15dp"/>
+                android:textSize="15dp"
+                tools:ignore="TextSizeCheck"
+                android:padding="3dp"/>
 
         </LinearLayout>
 
