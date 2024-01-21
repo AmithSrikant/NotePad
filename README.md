@@ -1,0 +1,2 @@
+to use my app you can just download and install file: app-release.apk ,from the above files
+i had faced problem when i buyed new phone because all my notes were on another phone and i had to copy paste everything to transfer it to new so i made this app so the we all can store our notes in cloud which is password protected and only you can see them with ease , just download app login and your notes will be backed up 
