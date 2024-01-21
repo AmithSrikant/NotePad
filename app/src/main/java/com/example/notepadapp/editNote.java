@@ -114,7 +114,7 @@ public class editNote extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if(networkInfo!=null){
-            if(networkInfo.isConnected()){
+            if(networkInfo.isAvailable()){
                 return true;
             }else {
                 return false;
