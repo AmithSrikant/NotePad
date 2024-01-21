@@ -1,6 +1,10 @@
 package com.example.notepadapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,34 +65,38 @@ public class newNote extends AppCompatActivity {
                 } else if (content.isEmpty()) {
                     Toast.makeText(newNote.this, "enter content", Toast.LENGTH_SHORT).show();
                 } else {
-                    tittleEdit.setEnabled(false);
-                    contentEdit.setEnabled(false);
-                    saveNoteButton.setClickable(false);
+                    if (checkInternet()) {
+                        tittleEdit.setEnabled(false);
+                        contentEdit.setEnabled(false);
+                        saveNoteButton.setClickable(false);
                     /*firebaseFirestore.collection("notes")
                     *makes like a book containing all user notes
                     *
                     /*document(firebaseUser.getUid()).collection("myNotes").document()
                     *gets the user id of every user and makes separate chapter or note for every user
                     */
-                    DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document();
-                    Map<String, Object> note = new HashMap<>();
-                    note.put("title",title);
-                    note.put("content",content);
+                        DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document();
+                        Map<String, Object> note = new HashMap<>();
+                        note.put("title", title);
+                        note.put("content", content);
 
-                    documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            saveNoteButton.setClickable(true);
-                            Toast.makeText(newNote.this, "saved", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(newNote.this,notePadlayout.class));
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            saveNoteButton.setClickable(true);
-                            Toast.makeText(newNote.this, "Failed to save", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                saveNoteButton.setClickable(true);
+                                Toast.makeText(newNote.this, "saved", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(newNote.this, notePadlayout.class));
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                saveNoteButton.setClickable(true);
+                                Toast.makeText(newNote.this, "Failed to save", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }else {
+                        Toast.makeText(newNote.this, "check network", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -104,5 +112,18 @@ public class newNote extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    boolean checkInternet(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo!=null){
+            if(networkInfo.isConnected()){
+                return true;
+            }else {
+                return false;
+            }
+        }else {
+            return false;
+        }
     }
 }
