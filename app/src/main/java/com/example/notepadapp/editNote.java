@@ -1,6 +1,9 @@
 package com.example.notepadapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,33 +59,42 @@ public class editNote extends AppCompatActivity {
         saveEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newTitle = title.getText().toString();
-                String newContent = content.getText().toString();
+                if (checkInternet()) {
+                    saveEditButton.setClickable(false);
+                    title.setEnabled(false);
+                    title.setEnabled(false);
+                    String newTitle = title.getText().toString();
+                    String newContent = content.getText().toString();
 
-                if(newTitle.isEmpty()&&newContent.isEmpty()){
-                    Toast.makeText(editNote.this, "note pad is empty", Toast.LENGTH_SHORT).show();
-                } else if (newContent.isEmpty()) {
-                    Toast.makeText(editNote.this, "enter content", Toast.LENGTH_SHORT).show();
-                } else if (newTitle.isEmpty()) {
-                    Toast.makeText(editNote.this, "title is empty", Toast.LENGTH_SHORT).show();
-                } else{
-                    //getting the document reference of the current note
-                    DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(intent.getStringExtra("NoteId"));
-                    Map <String,Object> note = new HashMap<>();
-                    note.put("title",newTitle);
-                    note.put("content",newContent);
-                    documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Toast.makeText(editNote.this, "changes saved", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(editNote.this,notePadlayout.class));
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(editNote.this, "failed to update", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    if (newTitle.isEmpty() && newContent.isEmpty()) {
+                        Toast.makeText(editNote.this, "note pad is empty", Toast.LENGTH_SHORT).show();
+                    } else if (newContent.isEmpty()) {
+                        Toast.makeText(editNote.this, "enter content", Toast.LENGTH_SHORT).show();
+                    } else if (newTitle.isEmpty()) {
+                        Toast.makeText(editNote.this, "title is empty", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //getting the document reference of the current note
+                        DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(intent.getStringExtra("NoteId"));
+                        Map<String, Object> note = new HashMap<>();
+                        note.put("title", newTitle);
+                        note.put("content", newContent);
+                        documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                saveEditButton.setClickable(true);
+                                Toast.makeText(editNote.this, "changes saved", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(editNote.this, notePadlayout.class));
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                saveEditButton.setClickable(true);
+                                Toast.makeText(editNote.this, "failed to update", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }else {
+                    Toast.makeText(editNote.this, "check internet", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -97,6 +109,19 @@ public class editNote extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    boolean checkInternet(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo!=null){
+            if(networkInfo.isConnected()){
+                return true;
+            }else {
+                return false;
+            }
+        }else {
+            return false;
+        }
     }
 
 }
