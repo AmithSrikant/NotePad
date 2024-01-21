@@ -61,6 +61,9 @@ public class newNote extends AppCompatActivity {
                 } else if (content.isEmpty()) {
                     Toast.makeText(newNote.this, "enter content", Toast.LENGTH_SHORT).show();
                 } else {
+                    tittleEdit.setEnabled(false);
+                    contentEdit.setEnabled(false);
+                    saveNoteButton.setClickable(false);
                     /*firebaseFirestore.collection("notes")
                     *makes like a book containing all user notes
                     *
@@ -75,12 +78,14 @@ public class newNote extends AppCompatActivity {
                     documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            saveNoteButton.setClickable(true);
                             Toast.makeText(newNote.this, "saved", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(newNote.this,notePadlayout.class));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            saveNoteButton.setClickable(true);
                             Toast.makeText(newNote.this, "Failed to save", Toast.LENGTH_SHORT).show();
                         }
                     });
