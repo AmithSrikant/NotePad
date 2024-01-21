@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fcb460"
     tools:context=".newNote">
 
 <androidx.appcompat.widget.Toolbar
@@ -40,13 +41,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tittleCreateNote"
-        android:layout_marginTop="-2dp"
-        android:gravity="center"
+        android:layout_marginTop="-3dp"
+        android:background="#fcb460"
         android:hint="Content"
+        android:gravity="start"
         android:padding="15dp"
         android:textColor="@color/black"
-        android:textSize="15sp"
-        android:background="#fcb460"/>
+        android:textSize="15sp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
