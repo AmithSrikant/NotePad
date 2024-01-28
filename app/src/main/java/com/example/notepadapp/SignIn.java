@@ -70,7 +70,7 @@ public class SignIn extends AppCompatActivity {
                                 Toast.makeText(SignIn.this, "done", Toast.LENGTH_SHORT).show();
                                 SendEmailVerification();
                             }else{
-                                Toast.makeText(SignIn.this, "failed+", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignIn.this, "failed", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
